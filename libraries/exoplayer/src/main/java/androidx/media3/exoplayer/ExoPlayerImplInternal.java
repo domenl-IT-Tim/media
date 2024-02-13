@@ -701,7 +701,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
       error = error.copyWithMediaPeriodId(playingPeriod.info.id);
     }
     Log.e(TAG, "Playback error", error);
-    stopInternal(/* forceResetRenderers= */ false, /* acknowledgeStop= */ false);
+    if (errorCode != PlaybackException.ERROR_CODE_IO_UNSPECIFIED) {
+      stopInternal(/* forceResetRenderers= */ false, /* acknowledgeStop= */ false);
+    }
     playbackInfo = playbackInfo.copyWithPlaybackError(error);
   }
 
